@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloocus-cicd-deployment
+  namespace: cloocus-cicd-namespace
+  labels:
+    # run: cloocus-cicd
+    app: cloocus-cicd-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      # run: cloocus-cicd
+      app: cloocus-cicd-app
+  template:
+    metadata:
+      labels:
+        run: cloocus-cicd
+        app: cloocus-cicd-app
+    spec:
+      containers:
+      - name: bulletin
+        image: 845772850476.dkr.ecr.ap-northeast-2.amazonaws.com/bulletin:latest
+        ports:
+        - containerPort: 8080
