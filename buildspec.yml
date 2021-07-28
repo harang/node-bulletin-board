@@ -9,7 +9,7 @@ phases:
       - chmod +x ./kubectl
       - mv ./kubectl /usr/local/bin/kubectl
       - mkdir ~/.kube
-      
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
