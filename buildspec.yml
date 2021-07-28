@@ -1,15 +1,17 @@
+
 version: 0.2
 
 phases:
   install:
     runtime-versions:
+      java: openjdk8 
       docker: 19
     commands:
       - curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.12/2020-07-08/bin/linux/amd64/kubectl
       - chmod +x ./kubectl
       - mv ./kubectl /usr/local/bin/kubectl
       - mkdir ~/.kube
-      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
