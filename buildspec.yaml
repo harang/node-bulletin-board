@@ -27,8 +27,8 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
-      - sed -i.bak 's#AWS_ECR_URI#'"$AWS_ECR_URI"'#' ./k8s/deployment.yaml
-      - sed -i.bak 's#DATE_STRING#'"$DATE"'#' ./k8s/deployment.yaml
+      # - sed -i.bak 's#AWS_ECR_URI#'"$AWS_ECR_URI"'#' ./k8s/deployment.yaml
+      # - sed -i.bak 's#DATE_STRING#'"$DATE"'#' ./k8s/deployment.yaml
       - kubectl apply -f ./k8s/deployment.yaml
       - kubectl apply -f ./k8s/service.yaml
 
