@@ -8,10 +8,12 @@ phases:
     - chmod +x ./kubectl
     - mv ./kubectl /usr/local/bin/kubectl
     - mkdir ~/.kube
-    
+    - echo "Update Kube Config"      
+    - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
 
   pre_build:
     commands:
+      - aws --version
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
@@ -30,8 +32,8 @@ phases:
       - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
       - export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
       # Setup kubectl with our EKS Cluster              
-      - echo "Update Kube Config"      
-      - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
+      # - echo "Update Kube Config"      
+      # - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
